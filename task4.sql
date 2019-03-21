@@ -1,12 +1,7 @@
-2
-SELECT Customer_id, String_AGG (cast(Order_id as text), ',') AS IDs into temptable
+
+SELECT Company_name as Company, String_AGG (cast(Order_id as text), ',') AS IDs
 FROM orders 
-GROUP BY customer_id; 
-
-select Company_name, IDs
-from customers
-inner join temptable
-on temptable.customer_id = customers.customer_id
-group by company_name, IDs
+left join customers
+on orders.customer_id = customers.customer_id
+GROUP BY customers.customer_id
 order by company_name;
-
